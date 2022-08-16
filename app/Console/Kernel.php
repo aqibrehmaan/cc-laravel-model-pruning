@@ -15,7 +15,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('model:prune', [
+            '--model' => [Deployment::class]
+        ])->everyMinute();
+
+        $schedule->command('model:prune', [
+            '--model' => [User::class]
+        ])->weekends();
     }
 
     /**
