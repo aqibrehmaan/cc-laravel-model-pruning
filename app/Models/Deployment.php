@@ -6,12 +6,13 @@ use App\Models\DeploymentLog;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Prunable;
+use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Deployment extends Model
 {
     use HasFactory;
-    use Prunable;
+    use MassPrunable;
 
     public function prunable(): Builder
     {
