@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\DeploymentLog;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Prunable;
@@ -15,5 +16,15 @@ class Deployment extends Model
     public function prunable(): Builder
     {
         return static::where('created_at', '<', now()->subWeek());
+    }
+
+    public function pruning()
+    {
+        $this->deploymentLogs()->delete();
+    }
+
+    public function deploymentLogs()
+    {
+        return $this->hasMany(DeploymentLog::class);
     }
 }
