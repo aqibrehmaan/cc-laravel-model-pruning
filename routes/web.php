@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Deployment;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    Deployment::factory()
+        ->times(10000)
+        ->sequence(function ($sequence) {
+            return [
+                'created_at' => now()->subHour($sequence->index)
+            ];
+        })
+        ->create();
 });
